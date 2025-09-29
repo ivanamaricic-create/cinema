@@ -19,5 +19,9 @@ export class Repertoire {
   getMovie(id: number) {
   return this.svc.getMovieById(id);
   }
-  
+
+  getProjections(movieId: number, repertoireId: number) {
+    return this.svc.getProjectionsByMovieAndRepertoire(movieId, repertoireId) || [];
+  }
+
 }

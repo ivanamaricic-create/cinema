@@ -6,15 +6,21 @@
             <div class="row">
               @for (d of repertoire(); track d.date) {
                 <div class="rep-day col-12 col-md-6 col-lg-4">
-                  <h3>{{ d.date }}</h3>
+                  <h3 class="ps-5">{{ d.date }}</h3>
                   <ul>
                      @for (id of d.movies; track id) {
                       @let movie = getMovie(id);
-                      <li class="d-flex align-items-center mb-2">
-                        <img [src]="movie?.poster ?? 'assets/img/placeholder.png'" [alt]="movie?.title ?? 'poster'" width="40" height="60" class="me-2 rounded"/>
-                        <a class="link-dark link-underline-opacity-0" [routerLink]="['/movies', movie?.id]">{{ movie?.title ?? 'Unknown title' }}</a>
+                      @let movieProjections = getProjections(id, d.id);
+                      @for(p of movieProjections; track p.id){
+                      <li class="d-flex align-items-center  mb-2">
+                        <img [src]="movie?.poster ?? 'assets/img/placeholder.png'" [alt]="movie?.title ?? 'poster'" width="60" height="80" class="me-2 rounded"/>
+                        <div class="d-flex flex-column">
+                          <a class="link-dark link-underline-opacity-0 fw-bold" [routerLink]="['/movies', movie?.id]">{{ movie?.title ?? 'Unknown title' }}</a>
+                          <span>{{p?.time}}pm - {{p?.hall}}</span>
+                        </div>
                       </li> 
                     }
+                  }
                   </ul>
                 </div>
               }
@@ -23,6 +29,5 @@
             <p>No repertoire data.</p>
           }
       </div>
-
 </section>
 

@@ -11,6 +11,7 @@ export interface Movie {
 }
 
 export interface Repertoire {
+  id: number;
   date: string;      
   movies: number[];  
 }
@@ -18,6 +19,7 @@ export interface Repertoire {
 export interface Projection {
   id: number;
   movieId: number;
+  repertoireId: number,
   time: string;      
   hall: string;
 }
@@ -93,6 +95,14 @@ export class MockDataService {
   
   getMovieById(id: number): Movie | undefined {
     return this.movies().find(m => m.id === id);
+  }
+
+  getProjectionById(id: number): Projection | undefined{
+    return this.projections().find(a=>a.id===id);
+  }
+
+  getProjectionsByMovieAndRepertoire(movieId : number, repertoideId: number){
+    return this.projections().filter(p => p.movieId === movieId && p.repertoireId === repertoideId);
   }
 
   addMovie(movie: Movie) {
