@@ -1,0 +1,6 @@
+.poster {
+  width: 300px;       /* or any size you want */
+  height: 400px;
+  /* object-fit: cover;   */
+  display: block;
+}

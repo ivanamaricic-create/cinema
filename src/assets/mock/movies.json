@@ -1,0 +1,62 @@
+[
+    {
+        "id" : 1,
+        "title" : "Inception",
+        "durationMin" : 136,
+        "poster" : "assets/images/inception.jpg",
+        "synopsis" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "actors" : [1,2,3]
+    },
+    {
+        "id" : 2,
+        "title" : " Shutter Island",
+        "durationMin" : 98,
+        "poster" : "assets/images/shutterisland.jpg",
+        "synopsis" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "actors" : [1]
+    },
+    {
+        "id" : 3,
+        "title" : "Matrix",
+        "durationMin" : 120,
+        "poster" : "assets/images/matrix.png",
+        "synopsis" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "actors" : [4]
+    },
+    {
+        "id" : 4,
+        "title" : "The Shawshank Redemption",
+        "durationMin" : 142,
+        "poster" : "assets/images/shawshank.jpg",
+        "synopsis" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "actors" : [8,9]
+
+    },
+    {
+        "id" : 5,
+        "title" : "The Godfather",
+        "durationMin" : 175,
+        "poster" : "assets/images/godfather.jpg",
+        "synopsis" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "actors" : [7]
+
+    },
+    {
+        "id" : 6,
+        "title" : "Forest Gump",
+        "durationMin" : 142,
+        "poster" : "assets/images/forestgump.jpg",
+        "synopsis" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "actors" : [6]
+
+    },
+     {
+        "id" : 7,
+        "title" : "Fight Club",
+        "durationMin" : 139,
+        "poster" : "assets/images/fightclub.jpg",
+        "synopsis" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "actors" : [5]
+
+    }
+]

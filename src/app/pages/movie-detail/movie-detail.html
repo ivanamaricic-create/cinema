@@ -1,0 +1,21 @@
+<section class="movie-detail">
+    <hr/>
+    <div class="container">
+    @if(movie(); as movie) {
+        <div class="row mb-3 align-items-center">
+        <div class="col-12 col-md-3 d-flex justify-content-center">
+            <img [src]="movie.poster" [alt]="movie.title" class="poster img-fluid rounded"/>
+        </div>
+        <div class="col-12 col-md-8">
+            <h1>{{ movie.title }}</h1>
+            <p>{{ movie.synopsis }}</p>
+            <p>{{ movie.durationMin }} min</p>
+            <p>Actors: {{ getActorNames(movie.actors || []) }}</p>
+        </div>
+        </div>
+    } 
+    @else {
+        <p>Movie not found</p>
+    }
+    </div>
+</section>

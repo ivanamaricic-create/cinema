@@ -1,0 +1,28 @@
+<section class="repertoire pt-3">
+  <div class="container">
+  <h1 class="text-center pb-3">Repertoire</h1>
+  <hr/>
+          @if (repertoire().length > 0) {
+            <div class="row">
+              @for (d of repertoire(); track d.date) {
+                <div class="rep-day col-12 col-md-6 col-lg-4">
+                  <h3>{{ d.date }}</h3>
+                  <ul>
+                     @for (id of d.movies; track id) {
+                      @let movie = getMovie(id);
+                      <li class="d-flex align-items-center mb-2">
+                        <img [src]="movie?.poster ?? 'assets/img/placeholder.png'" [alt]="movie?.title ?? 'poster'" width="40" height="60" class="me-2 rounded"/>
+                        <a class="link-dark link-underline-opacity-0" [routerLink]="['/movies', movie?.id]">{{ movie?.title ?? 'Unknown title' }}</a>
+                      </li> 
+                    }
+                  </ul>
+                </div>
+              }
+            </div>
+          } @else {
+            <p>No repertoire data.</p>
+          }
+      </div>
+
+</section>
+

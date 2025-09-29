@@ -1,0 +1,4 @@
+[
+  { "id": 1, "movieId": 1, "time": "16:00", "hall": "Hall 1" },
+  { "id": 2, "movieId": 2, "time": "17:30", "hall": "Hall 2" }
+]

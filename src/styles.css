@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Cinzel';
+    src: url('assets/fonts/Cinzel/Cinzel-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    font-family: 'Cinzel', sans-serif;
+    background-color: #eeeeee8c !important;
+    
+}
+footer{
+    background-color: rgba(0, 0, 0, 0.911);
+}

@@ -1,0 +1,14 @@
+.movies .grid { display:flex; gap:16px; flex-wrap:wrap; }
+.movie-card { width:180px; }
+.poster { width:100%; height:auto; display:block; border-radius:6px; }
+.card {
+  max-width: 18rem;
+  margin: 0 auto; 
+}
+.read-more{
+  color : #5a5a5a !important;
+  font-weight: 500;
+}
+.read-more:hover{
+  color: #000 !important;
+}
