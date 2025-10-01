@@ -14,7 +14,6 @@ export class Navbar {
   menuItems = [
       { label: 'Home', path: './home' },
       { label: 'Movies', path: './movies' },
-      { label: 'Projections', path: './projections' },
       { label: 'Repertoire', path: './repertoire' }
     ];
 

@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Navbar } from "./shared/navbar/navbar";
 import { Header } from "./shared/header/header";
 import { Footer } from "./shared/footer/footer";
 

@@ -1,7 +1,8 @@
-<section class="movies pt-3">
-  <div class="container">
-      <h1 class="text-center pb-3">Movies</h1>
-  <hr/>
+<section class="movies">
+  <div class="background d-flex align-items-center justify-content-center">
+    <h1 class="text-center text-white text-uppercase">Movies</h1>
+  </div>
+  <div class="container p-5">
     @if(movies().length > 0){
       <div class="row g-3">
         @for(m of movies(); track m.id){

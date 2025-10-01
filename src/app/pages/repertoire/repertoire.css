@@ -2,3 +2,12 @@
   object-fit: cover;
   border-radius: 4px;
 }
+.background {
+  background-image: url('../../../assets/images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 220px; 
+  filter: brightness(90%);
+
+}

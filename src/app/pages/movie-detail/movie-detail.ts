@@ -15,6 +15,7 @@ import { MockDataService} from '../../core/services/mock-data.service';
 export class MovieDetail {
   private route = inject(ActivatedRoute);
   private svc = inject(MockDataService);
+  readonly repertoire = this.svc.repertoire;
 
   movieId = toSignal(
     this.route.paramMap.pipe(
@@ -25,8 +26,16 @@ export class MovieDetail {
   movie = computed(() =>
     this.svc.getMovieById(this.movieId()!)
   );
+  
+  getMovie(id: number) {
+  return this.svc.getMovieById(id);
+  }
 
    getActorNames(actorId: number[]): string {
     return (actorId || []).map(id => this.svc.getActorById(id)?.name || 'Unknown').join(', ');
+  }
+
+  getProjections(movieId: number, repertoireId: number) {
+    return this.svc.getProjectionsByMovieAndRepertoire(movieId, repertoireId) || [];
   }
 }

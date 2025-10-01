@@ -1,6 +1,13 @@
 .poster {
-  width: 300px;       /* or any size you want */
+  width: 300px;
   height: 400px;
-  /* object-fit: cover;   */
   display: block;
+}
+.background {
+  background-image: url('../../../assets/images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 220px; 
+  filter: brightness(90%);
 }
