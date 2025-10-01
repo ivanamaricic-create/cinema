@@ -159,6 +159,13 @@
       "repertoireId" : 7,
       "time" : "22:00",
       "hall" : "Hall 2"
+    },
+    { 
+        "id" : 18,
+        "movieId" : 2,
+        "repertoireId" : 1,
+        "time" : "16:30",
+        "hall" : "Hall 2" 
     }
     
 ]

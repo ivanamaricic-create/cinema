@@ -4,17 +4,17 @@
     </div>
     <div class="container py-5">
         @if(movie(); as movie) {
-            <div class="row mb-3 align-items-center">
-                <div class="col-12 col-md-3 d-flex justify-content-center">
+            <div class="row">
+                <div class="col-12 col-md-4 d-flex justify-content-center">
                     <img [src]="movie.poster" [alt]="movie.title" class="poster img-fluid rounded"/>
                 </div>
                 <div class="col-12 col-md-8">
                     <h1>{{ movie.title }}</h1>
                     <p>{{ movie.synopsis }}</p>
-                    <p>{{ movie.durationMin }} min</p>
+                    <p>Duration: {{ movie.durationMin }} min</p>
                     <p>Actors: {{ getActorNames(movie.actors || []) }}</p>
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table table-striped-columns text-center">
                             <thead>
                                 <tr>
                                     @if(repertoire().length > 0){
@@ -25,24 +25,26 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                @if(repertoire().length > 0) {
-                                    @for(d of repertoire(); track d.date) {
-                                        @let movieProjections = getProjections(movie.id, d.id);
-                                        <td>
-                                        @if(movieProjections && movieProjections.length > 0) {
-                                        @for(p of movieProjections; track p.id) {
-                                        <div>{{ p.time }}pm - {{ p.hall }}</div>
+                                    @if(repertoire().length > 0) {
+                                        @for(d of repertoire(); track d.date) {
+                                            @let movieProjections = getProjections(movie.id, d.id);
+                                            <td>
+                                            @if(movieProjections && movieProjections.length > 0) {
+                                            @for(p of movieProjections; track p.id) {
+                                            <div>{{ p.time }}pm <span class="text-muted">{{ p.hall }}</span></div>
+                                               <button type="button" class="btn btn-outline-dark my-1">reserve</button>
+                                            }
+                                        
+                                            }
+                                            @else {
+                                                <div class="text-muted">No projections</div>
+                                            }
+                                            </td>
                                         }
-                                        }
-                                        @else {
-                                            <div class="text-muted">No projections</div>
-                                        }
-                                        </td>
+                                    } 
+                                    @else {
+                                    <td colspan="1">No repertoire available</td>
                                     }
-                                } 
-                                @else {
-                                <td colspan="1">No repertoire available</td>
-                                }
                                 </tr>
                             </tbody>
                         </table>
