@@ -1,4 +1,4 @@
-import { inject, Injectable, signal, computed } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export interface Movie {
@@ -6,7 +6,7 @@ export interface Movie {
   title: string;
   durationMin: number;
   poster?: string;
-  synopsis:string;
+  synopsis?:string;
   actors:number[];
 }
 
@@ -49,44 +49,39 @@ export class MockDataService {
     this.http.get<Actor[]>('/assets/mock/actors.json')
       .subscribe({
         next: data => this.actors.set(Array.isArray(data) ? data : []),
-        error: err => {
-          console.error('Failed to load actors.json', err);
+        error: err => {console.error('Failed to load actors.json', err);
           this.actors.set([]);
         }
       });
   }
 
   loadMovies() {
-    this.http.get<Movie[]>('/assets/mock/movies.json')
-      .subscribe({
-        next: data => this.movies.set(Array.isArray(data) ? data : []),
-        error: err => {
-          console.error('Failed to load movies.json', err);
-          this.movies.set([]);
+    this.http.get<Movie[]>('/assets/mock/movies.json').subscribe({
+      next: data => this.movies.set(Array.isArray(data) ? data : []),
+        error: err => {console.error('Failed to load movies.json', err);
+        this.movies.set([]);
         }
-      });
+    });
   }
   
   loadRepertoire() {
-    this.http.get<Repertoire[]>('/assets/mock/repertoire.json')
-      .subscribe({
-        next: data => this.repertoire.set(Array.isArray(data) ? data : []),
-        error: err => {
-          console.error('Failed to load repertoire.json', err);
-          this.repertoire.set([]);
-        }
-      });
+    this.http.get<Repertoire[]>('/assets/mock/repertoire.json').subscribe({
+      next: data => this.repertoire.set(Array.isArray(data) ? data : []),
+      error: err => {
+        console.error('Failed to load repertoire.json', err);
+        this.repertoire.set([]);
+      }
+    });
   }
 
   loadProjections() {
-    this.http.get<Projection[]>('/assets/mock/projections.json')
-      .subscribe({
-        next: data => this.projections.set(Array.isArray(data) ? data : []),
-        error: err => {
-          console.error('Failed to load projections.json', err);
-          this.projections.set([]);
-        }
-      });
+    this.http.get<Projection[]>('/assets/mock/projections.json').subscribe({
+      next: data => this.projections.set(Array.isArray(data) ? data : []),
+      error: err => {
+        console.error('Failed to load projections.json', err);
+        this.projections.set([]);
+      }
+    });
   }
 
   getActorById(id: number): Actor | undefined {
@@ -101,8 +96,8 @@ export class MockDataService {
     return this.projections().find(a=>a.id===id);
   }
 
-  getProjectionsByMovieAndRepertoire(movieId : number, repertoideId: number){
-    return this.projections().filter(p => p.movieId === movieId && p.repertoireId === repertoideId);
+  getProjectionsByMovieAndRepertoire(movieId : number, repertoireId: number){
+    return this.projections().filter(p => p.movieId === movieId && p.repertoireId === repertoireId);
   }
 
   addMovie(movie: Movie) {
