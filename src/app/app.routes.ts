@@ -10,5 +10,4 @@ export const routes: Routes = [
     {path: 'home', component: Home, title : "Cinema | Home"},
     {path: 'movies/:id', component: MovieDetail, title : "Cinema | Movie"},
     {path: '', redirectTo: 'home', pathMatch: 'full' }
-
 ];
