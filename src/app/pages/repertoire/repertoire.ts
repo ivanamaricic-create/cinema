@@ -12,16 +12,16 @@ import { RouterModule } from '@angular/router';
 })
 
 export class Repertoire {
-  private svc = inject(MockDataService);
-  readonly repertoire = this.svc.repertoire;
+  private mockDataService = inject(MockDataService);
+  readonly repertoire = this.mockDataService.repertoire;
 
 
   getMovie(id: number) {
-  return this.svc.getMovieById(id);
+  return this.mockDataService.getMovieById(id);
   }
 
   getProjections(movieId: number, repertoireId: number) {
-    return this.svc.getProjectionsByMovieAndRepertoire(movieId, repertoireId) || [];
+    return this.mockDataService.getProjectionsByMovieAndRepertoire(movieId, repertoireId) || [];
   }
 
 }
