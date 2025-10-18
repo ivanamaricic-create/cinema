@@ -12,11 +12,11 @@ import { RouterModule } from '@angular/router';
 })
 
 export class Movies {
-  private svc = inject(MockDataService);
-  readonly movies = this.svc.movies;
+  private mockDataService = inject(MockDataService);
+  readonly movies = this.mockDataService.movies;
 
   getActorNames(actorId: number[]): string {
-    return (actorId || []).map(id => this.svc.getActorById(id)?.name || 'Unknown').join(', ');
+    return (actorId || []).map(id => this.mockDataService.getActorById(id)?.name || 'Unknown').join(', ');
   }
 
   isExpanded = false;
