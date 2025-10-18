@@ -1,5 +1,6 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 
 export interface Movie {
   id: number;
@@ -31,92 +32,59 @@ export interface Actor {
 
 @Injectable({ providedIn: 'root' })
 export class MockDataService {
-  readonly movies = signal<Movie[]>([]);
-  readonly repertoire = signal<Repertoire[]>([]);
-  readonly projections = signal<Projection[]>([]);
-  readonly actors = signal<Actor[]>([]);
+  
+  constructor(private http: HttpClient) {}
 
-  private http = inject(HttpClient);
-
-  constructor() {
-    this.loadActors();
-    this.loadMovies();
-    this.loadRepertoire();
-    this.loadProjections();
+  getAllMovies(): Observable<Movie[]> {
+    return this.http.get<Movie[]>('/assets/mock/movies.json');
   }
 
-  loadActors(){
-    this.http.get<Actor[]>('/assets/mock/actors.json')
-      .subscribe({
-        next: data => this.actors.set(Array.isArray(data) ? data : []),
-        error: err => {console.error('Failed to load actors.json', err);
-          this.actors.set([]);
-        }
-      });
-  }
-
-  loadMovies() {
-    this.http.get<Movie[]>('/assets/mock/movies.json').subscribe({
-      next: data => this.movies.set(Array.isArray(data) ? data : []),
-        error: err => {console.error('Failed to load movies.json', err);
-        this.movies.set([]);
-        }
-    });
+  getMovieById(id: number): Observable<Movie | undefined> {
+    return this.http.get<Movie[]>('/assets/mock/movies.json').pipe(
+      map((movies) => movies.find(m => m.id === id))
+    )
   }
   
-  loadRepertoire() {
-    this.http.get<Repertoire[]>('/assets/mock/repertoire.json').subscribe({
-      next: data => this.repertoire.set(Array.isArray(data) ? data : []),
-      error: err => {
-        console.error('Failed to load repertoire.json', err);
-        this.repertoire.set([]);
-      }
-    });
-  }
-
-  loadProjections() {
-    this.http.get<Projection[]>('/assets/mock/projections.json').subscribe({
-      next: data => this.projections.set(Array.isArray(data) ? data : []),
-      error: err => {
-        console.error('Failed to load projections.json', err);
-        this.projections.set([]);
-      }
-    });
-  }
-
-  getActorById(id: number): Actor | undefined {
-    return this.actors().find(a => a.id === id);
+  getAllActors(): Observable<Actor[]> {
+    return this.http.get<Actor[]>('/assets/mock/actors.json');
   }
   
-  getMovieById(id: number): Movie | undefined {
-    return this.movies().find(m => m.id === id);
+  getAllRepertoire(): Observable<Repertoire[]> {
+    return this.http.get<Repertoire[]>('/assets/mock/repertoire.json');
   }
 
-  getProjectionById(id: number): Projection | undefined{
-    return this.projections().find(a=>a.id===id);
+  getAllProjections(): Observable<Projection[]> {
+    return this.http.get<Projection[]>('/assets/mock/projections.json');
   }
 
-  getProjectionsByMovieAndRepertoire(movieId : number, repertoireId: number){
-    return this.projections().filter(p => p.movieId === movieId && p.repertoireId === repertoireId);
+  getActorById(id : number):Observable<Actor | undefined> {
+    return this.http.get<Actor[]>('/assets/mock/actors.json').pipe(
+      map((actors) => actors.find(a => a.id === id))
+    );
   }
 
-  addMovie(movie: Movie) {
-    this.movies.set([...this.movies(), movie]);
+  getProjectionsById(id : number):Observable<Projection | undefined> {
+    return this.http.get<Projection[]>('/assets/mock/projections.json').pipe(
+      map((projections) => projections.find(p => p.id === id))
+    );
   }
 
-  updateMovie(updated: Movie) {
-    this.movies.set(this.movies().map(m => m.id === updated.id ? updated : m));
+  getProjectionsByMovieAndRepertoire(movieId: number, repertoireId: number): Observable<Projection[]> {
+    return this.getAllProjections().pipe(
+      map(projections =>
+        projections.filter(
+          p => p.movieId === movieId && p.repertoireId === repertoireId
+        )
+      )
+    );
   }
-
-  removeMovie(id: number) {
-    this.movies.set(this.movies().filter(m => m.id !== id));
-  }
-
-  addProjection(p: Projection) {
-    this.projections.set([...this.projections(), p]);
-  }
-
-  addRepertoireEntry(entry: Repertoire) {
-    this.repertoire.set([...this.repertoire(), entry]);
+  
+  getActorNamesByIds(ids: number[]): Observable<string[]> {
+    return this.getAllActors().pipe(
+      map(actors => actors
+        .filter(actor => ids.includes(actor.id))
+        .map(actor => actor.name)
+      )
+    );
   }
 }

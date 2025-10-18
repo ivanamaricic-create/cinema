@@ -3,31 +3,37 @@
     <h1 class="text-center text-white text-uppercase">Movies</h1>
   </div>
   <div class="container p-5">
-    @if(movies().length > 0){
-      <div class="row g-3">
-        @for(m of movies(); track m.id){
-          <div class="col-12 col-sm-6 col-lg-4">
-            <div class="card h-100 flex-fill">
-              <img [src]="m.poster" [alt]="m.title" class="poster card-img-top"/>
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title text-uppercase fw-bold">{{m.title}}</h5>
-                <p>{{ isExpanded ? m.synopsis : (m.synopsis | slice:0:100) + '...' }}
-                  <a class="read-more" href="#" (click)="isExpanded = !isExpanded; $event.preventDefault()">
-                    {{ isExpanded ? 'Read less' : 'Read more' }}
-                  </a>
-                </p>
-                <p class="card-text fw-bold">{{m.durationMin}} min</p>
-                <p class="card-text"><span class="fw-bold">Actors:</span> {{getActorNames(m.actors || [])}}</p>
-                <a [routerLink]="['/movies', m.id]" class="btn btn-dark mt-auto">Details / Projections</a>
+    @if(movies$ | async; as movies){
+      @if(movies.length > 0){
+        <div class="row g-3">
+          @for(m of movies; track m.id){
+            <div class="col-12 col-sm-6 col-lg-4">
+              <div class="card h-100 flex-fill">
+                <img [src]="m.poster" [alt]="m.title" class="poster card-img-top"/>
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title text-uppercase fw-bold">{{m.title}}</h5>
+                  <p>{{ isExpanded ? m.synopsis : (m.synopsis | slice:0:100) + '...' }}
+                    <a class="read-more" href="#" (click)="isExpanded = !isExpanded; $event.preventDefault()">
+                      {{ isExpanded ? 'Read less' : 'Read more' }}
+                    </a>
+                  </p>
+                  <p class="card-text fw-bold">{{m.durationMin}} min</p>
+                  <p class="card-text"><span class="fw-bold">Actors:</span> {{m.actors | actorNames | async}}</p>
+                  <a [routerLink]="['/movie', m.id]" class="btn btn-dark mt-auto">Details / Projections</a>
+                </div>
               </div>
             </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
+      }
+      @else {
+      <p>No movies available.</p>
+      }
     }
     @else {
-      <p>No movies available.</p>
+      <p>Loading...</p>
     }
+    
   </div>
 </section>
 

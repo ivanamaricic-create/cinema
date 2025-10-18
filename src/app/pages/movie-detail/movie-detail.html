@@ -3,45 +3,49 @@
         <h1 class="text-center text-white text-uppercase">Movie details</h1>
     </div>
     <div class="container py-5">
-        @if(movie(); as movie) {
+        @if(movie; as movie) {
             <div class="row">
                 <div class="col-12 col-md-4 d-flex justify-content-center">
-                    <img [src]="movie.poster" [alt]="movie.title" class="poster img-fluid rounded"/>
+                    <img [src]="movie?.poster" [alt]="movie?.title" class="poster img-fluid rounded"/>
                 </div>
                 <div class="col-12 col-md-8">
-                    <h1>{{ movie.title }}</h1>
-                    <p>{{ movie.synopsis }}</p>
-                    <p>Duration: {{ movie.durationMin }} min</p>
-                    <p>Actors: {{ getActorNames(movie.actors || []) }}</p>
+                    <h1>{{ movie?.title }}</h1>
+                    <p>{{ movie?.synopsis }}</p>
+                    <p>Duration: {{ movie?.durationMin }} min</p>
+                    <p>Actors: {{ movie?.actors| actorNames | async}}</p>
                     <div class="table-responsive">
                         <table class="table table-striped-columns text-center">
                             <thead>
                                 <tr>
-                                    @if(repertoire().length > 0){
-                                    @for(d of repertoire(); track d.date){
-                                        <th scope="col">{{d.date}}</th>}
+                                    @if(repertoire$ | async; as repertoire){
+                                    @if(repertoire.length > 0){
+                                        @for(d of repertoire; track d.date){
+                                            <th scope="col">{{d.date}}</th>
+                                        }
+                                    }
                                     }
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    @if(repertoire().length > 0) {
-                                        @for(d of repertoire(); track d.date) {
-                                            @let movieProjections = getProjections(movie.id, d.id);
+                                    @if(repertoire$ | async; as repertoire){
+                                    @if(repertoire.length > 0) {
+                                        @for(d of repertoire; track d.date) {
+                                            @let movieProjections = (movie.id | projections:d.id | async);
                                             <td>
-                                            @if(movieProjections && movieProjections.length > 0) {
-                                            @for(p of movieProjections; track p.id) {
-                                            <div>{{ p.time }}pm <span class="text-muted">{{ p.hall }}</span></div>
-                                               <button type="button" class="btn btn-outline-dark my-1">reserve</button>
-                                            }
-                                        
-                                            }
-                                            @else {
-                                                <div class="text-muted">No projections</div>
-                                            }
+                                                @if(movieProjections && movieProjections.length > 0) {
+                                                    @for(p of movieProjections; track p.id) {
+                                                        <div>{{ p.time }}pm <span class="text-muted">{{ p.hall }}</span></div>
+                                                        <button type="button" class="btn btn-outline-dark my-1">reserve</button>
+                                                    }
+                                                }
+                                                @else {
+                                                    <div class="text-muted">No projections</div>
+                                                }
                                             </td>
                                         }
                                     } 
+                                }
                                     @else {
                                     <td colspan="1">No repertoire available</td>
                                     }
