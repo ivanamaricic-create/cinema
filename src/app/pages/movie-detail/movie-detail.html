@@ -18,18 +18,15 @@
                             <thead>
                                 <tr>
                                     @if(repertoire$ | async; as repertoire){
-                                    @if(repertoire.length > 0){
                                         @for(d of repertoire; track d.date){
                                             <th scope="col">{{d.date}}</th>
                                         }
-                                    }
                                     }
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     @if(repertoire$ | async; as repertoire){
-                                    @if(repertoire.length > 0) {
                                         @for(d of repertoire; track d.date) {
                                             @let movieProjections = (movie.id | projections:d.id | async);
                                             <td>
@@ -44,8 +41,7 @@
                                                 }
                                             </td>
                                         }
-                                    } 
-                                }
+                                    }
                                     @else {
                                     <td colspan="1">No repertoire available</td>
                                     }
