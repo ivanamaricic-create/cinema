@@ -1,41 +1,24 @@
-import { Component, inject, computed} from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { MockDataService} from '../../core/services/mock-data.service';
+import { MockDataService, Movie, Repertoire} from '../../core/services/mock-data.service';
+import { ActorNamesPipe } from '../../core/pipes/actor-names.pipe';
+import { ProjectionsPipe } from '../../core/pipes/projections.pipe';
 
 @Component({
   selector: 'app-movie-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ActorNamesPipe, ProjectionsPipe],
   templateUrl: './movie-detail.html',
-  styleUrl: './movie-detail.css'
+  styleUrls: ['./movie-detail.css']
 })
 export class MovieDetail {
-  private route = inject(ActivatedRoute);
   private mockDataService = inject(MockDataService);
-  readonly repertoire = this.mockDataService.repertoire;
+  repertoire$:Observable<Repertoire[]> = this.mockDataService.getAllRepertoire();
+  movie : Movie | undefined;
 
-  movieId = toSignal(
-    this.route.paramMap.pipe(
-      map(params => Number(params.get('id')))
-    )
-  );
-
-  movie = computed(() =>
-    this.mockDataService.getMovieById(this.movieId()!)
-  );
-  
-  getMovie(id: number) {
-  return this.mockDataService.getMovieById(id);
-  }
-
-   getActorNames(actorId: number[]): string {
-    return (actorId || []).map(id => this.mockDataService.getActorById(id)?.name || 'Unknown').join(', ');
-  }
-
-  getProjections(movieId: number, repertoireId: number) {
-    return this.mockDataService.getProjectionsByMovieAndRepertoire(movieId, repertoireId) || [];
-  }
+  constructor(private route: ActivatedRoute){
+    this.movie = this.route.snapshot.data['movie'];
+  } 
 }

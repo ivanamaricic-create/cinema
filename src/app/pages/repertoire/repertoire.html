@@ -3,32 +3,39 @@
     <h1 class="text-center text-white text-uppercase">Repertoire</h1>
   </div>
   <div class="container py-5">
-    @if (repertoire().length > 0) {
-      <div class="row">
-        @for (d of repertoire(); track d.date) {
-          <div class="rep-day col-12 col-md-6 col-lg-4 mb-2">
-            <h3 class="text-center">{{ d.date }}</h3>
-            <ul>
-              @for (id of d.movies; track id) {
-                @let movie = getMovie(id);
-                @let movieProjections = getProjections(id, d.id);
-                @for(p of movieProjections; track p.id){
-                  <li class="d-flex align-items-center mb-2">
-                    <img [src]="movie?.poster ?? 'assets/img/placeholder.png'" [alt]="movie?.title ?? 'poster'" width="60" height="80" class="me-2 rounded"/>
-                    <div class="d-flex flex-column">
-                      <a class="link-dark link-underline-opacity-0 fw-bold" [routerLink]="['/movies', movie?.id]">{{ movie?.title ?? 'Unknown title' }}</a>
-                      <span>{{p?.time}}pm - {{p?.hall}}</span>
-                    </div>
-                  </li> 
+    @if (repertoire$ | async; as repertoire) {
+      @if (repertoire.length > 0) {
+        <div class="row">
+          @for (d of repertoire; track d.id) {
+            <div class="rep-day col-12 col-md-6 col-lg-4 mb-2">
+              <h3 class="text-center">{{ d.date }}</h3>
+              <ul>
+                @for (movieId of d.movies; track movieId) {
+                  @if (movieId | movieById | async; as movie) {
+                    @if (movie.id | projections: d.id | async; as movieProjections) {
+                      @for (p of movieProjections; track p.id) {
+                        <li class="d-flex align-items-center mb-2">
+                          <img [src]="movie?.poster ?? 'assets/img/placeholder.png'" [alt]="movie?.title ?? 'poster'" width="60" height="80" class="me-2 rounded"/>
+                          <div class="d-flex flex-column">
+                            <a class="link-dark link-underline-opacity-0 fw-bold" [routerLink]="['/movie', movie?.id]"> {{ movie?.title ?? 'Unknown title' }} </a>
+                            <span>{{ p.time }}pm - {{ p.hall }}</span>
+                          </div>
+                        </li>
+                      }
+                    }
+                  }
                 }
-              }
-            </ul>
-          </div>
-        }
-      </div>
+              </ul>
+            </div>
+          }
+        </div>
+      }
+      @else {
+        <p>No repertoire data.</p>
+      }
     }
     @else {
-      <p>No repertoire data.</p>
+        <p>Loading...</p>
     }
   </div>
 </section>
